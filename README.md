@@ -1,51 +1,82 @@
 # FluencySimilarity
 
-Contains various scripts for the analysis of transcripts of second language learners of english. These are scripts for Nel de Jong.
+This repository contains scripts to compare textual similarity using trigrams and unigram (words) using two metrics 
+for similarity: Jaccard Similarity and Cosine Similarity of tf-idf vectors.
 
-Included in this repo are scripts to compute the Jaccard similarity and cosine similarity of tf-idf vectors. This can be computed when the tokens are words or trigrams. See below for more details on SimilarityAnalysis. 
 ### How do I get set up? ###
+* Install [Anaconda3](https://www.anaconda.com/distribution/#download-section).
+* Open a command prompt
+* Run `$ cd C:\Path\to\project` and replace the path with the correct one.
+* Run `$ pip install -r requirements.txt`
+* Run `$ SimilarityAnalysis.bat`. This runs the script on some sample data provided in the folder sample_data.
+  Which runs the command `$ python "src\SimilarityAnalysis.py" -t trigram -d "sample_data" --begin-line 7 > "result.csv"`
+* Running `$ SimilarityAnalysis.bat` will output a file `result.csv` in root of the repository.
+* To list options for the scripts use the command `$ python src\SimilarityAnalysis.py --help`
 
-* SimilarityAnalysis.bat is batch file that runs on sample data
-* To list options for the scripts use the command python <path-to-script> --help
-* Outputs from SimilarityAnalysis.bat are in the output folder in root of the repository.
-* Dependencies: Uses interpreter version Python 3 and NOT Python 2.7, third party libraries are in the requirement.txt file
-* How to run tests: Install PyCharm IDE and configure paths to resolve dependencies within each project. Once this is done you should be able to run the unit tests in PyCharm.
+**Notes**
 
-### Deployment instructions ###
-1. Install Python 3
-2. Clone or download the entire repository and unzip
-3. Running SimilarityAnalysis.bat and SimilarityAnalysisPst.bat will run on test data.
-4. To run on other data modify the input file paths in batch file to point to new input files.
+* Dependencies: Uses interpreter version Python 3 (tested on 3.7) and NOT Python 2.x, third party libraries are in 
+the requirement.txt file
+* How to run unit tests: Install PyCharm IDE and configure paths to resolve dependencies within each project. Once 
+this is done you should be able to run the unit tests in PyCharm.
 
 To see help from the command line run the command
 
-$ python "src\SimilarityAnalysis.py" -h
+`$ python "src\SimilarityAnalysis.py" -h`
+
+## Expected file format
+**File name format:** {condition}_{session}_{studentId}_{story}{delivery}_blah_blah.cex
+
+Ex) "NoTP_918_1_a1_10250_checked_AS-mlv_trans.str.fix.fxb.mor.pst_err-jms.chstr.coocr.cex"
+`condition = "NoTP", session = 1, sudentId = 918, story = "a", delivery = 1`
+
+Note that the story and delivery must be one character. If you want to change this behavior then
+see file `BaseFreqDictReader.py` method `ParseFileName()`
+
+**Contents** The contents of the file should contain lines of the form "    {freq}  {word1} {word2} {word3}"
+
+    1  this is my
+    1  is my text
+    3  hello my world
+
+**How we compare files:** Comparison are made between files with same {condition, studentId, delivery} unless the 
+"abc" flag is set in which
+the comparisons are made between files with same {condition, studentId, session}.
 
 ### Examples
 
-Ex1) Similarity based on trigrams
+Ex1) Similarity based on trigrams. `$ SimilarityAnalysis.bat`
 
-$ python "src\SimilarityAnalysis.py" -t trigram -d "sampledata1_out" > "sampledata1_out\result.csv"
+`$ python "src\SimilarityAnalysis.py" -t trigram -d "sample_data" --begin-line 7 > "result.csv"`
 
-Ex2) Similarity based on POS trigrams
+Ex2) Similarity based on words (unigrams). `SimilarityAnalysisUnigram.bat`
 
-$ python "SimilarityAnalysis\src\SimilarityAnalysis.py" -t trigram -d "sampledata1_out" > "sampledata1_out\result.csv"
+`$ python "src\SimilarityAnalysis.py" -t unigram -d "sample_data_unigram" --begin-line 7 > "result_unigram.csv"`
 
 ### Documentation of SimilarityAnalysis
 
-To understand how Similarity in SimilarityAnalysis is computed one should start by running and inspecting the unit tests in SimpleTests.py. These tests should give a basic understanding of what this core of the code does. The other code in this  is mainly for performance and unpacking the data from the form it is in so that we can compute the similarity (i.e., plumbing)
+To understand how Similarity in SimilarityAnalysis is computed one should start by running and inspecting the unit 
+tests in SimpleTests.py. These tests should give a basic understanding of what this core of the code does. The other 
+code in this  is mainly for performance and unpacking the data from the form it is in so that we can compute the 
+ imilarity (i.e., plumbing)
 
-The raw methods that compute the compute the Jaccard Similarity and Cosine Similarity are in IRSystemHelper.py. IRSystem.py and IRSystemSimple.py are wrapper classes around methods of this class that adds caching for performance and methods to read files from disk. If you want to understand how these basic methods can be used, look at SimpleTests.py. Here there are unit tests that set up very simple test documents and compute all the desired similarities.
+The raw methods that compute the compute the Jaccard Similarity and Cosine Similarity are in
+IRSystemHelper.py. IRSystem.py and IRSystemSimple.py are wrapper classes around methods of this class that adds 
+caching for performance and methods to read files from disk. If you want to understand how these basic methods 
+can be used, look at SimpleTests.py. Here there are unit tests that set up very simple test documents and compute 
+all the desired similarities.
 
 ### Who do I talk to? ###
 
-* admin: phil.tillman@gmail.com
-* researcher: c.a.m.dejong@uva.nl
+* admin: Philip Tillman <phil.tillman@gmail.com>
+* researcher: Nel de Jong <c.a.m.dejong@uva.nl>
 
 ### Publishing using our code ###
 Please cite our paper if you use this code:
 
-de Jong, N., & Tillman, P. C. (2018). Grammatical structures and oral fluency in immediate task repetition: trigrams across repeated performances. In M. Bygate (Ed.), Learning language through task repetition (pp. 43-73). Amsterdam: John Benjamins.
+de Jong, N., & Tillman, P. C. (2018). Grammatical structures and oral fluency in immediate task repetition: 
+trigrams across repeated performances. In M. Bygate (Ed.), Learning language through task repetition (pp. 43-73). 
+Amsterdam: John Benjamins.
 
 ```
 @article{deJongTillman2018,

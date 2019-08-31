@@ -7,7 +7,7 @@
 import os
 import unittest
 from IRSystem import IRSystem
-from NelsFreqDictReader import TrigramFreqDictReader
+from BaseFreqDictReader import TrigramFreqDictReader
 
 
 class TestSimilarityAnalysis(unittest.TestCase):

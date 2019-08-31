@@ -2,9 +2,9 @@ import os, sys, collections, ntpath
 from IRSystem import FreqDictReader
 __author__ = 'Phil'
 
-class NelsFreqDictReader(FreqDictReader):
+class BaseFreqDictReader(FreqDictReader):
     def __init__(self, directoryOfTexts, extension, compare_abc):
-        super(NelsFreqDictReader,self).__init__(directoryOfTexts, extension)
+        super(BaseFreqDictReader, self).__init__(directoryOfTexts, extension)
         self.compare_abc = compare_abc
 
     def CompareFiles(self, filesPathsForComparison, simMethod, simMethodName):
@@ -110,10 +110,10 @@ class NelsFreqDictReader(FreqDictReader):
         delivery = int(fileNameAsArray[3][1])
         return condition, studentId, session, story, delivery
 
-class TrigramFreqDictReader(NelsFreqDictReader):
-    def __init__(self, directoryOfTexts, extension, compare_abc):
+class TrigramFreqDictReader(BaseFreqDictReader):
+    def __init__(self, directoryOfTexts, extension, compare_abc, beginLine=0):
         super(TrigramFreqDictReader,self).__init__(directoryOfTexts, extension, compare_abc)
-        self.beginLine = 7
+        self.beginLine = beginLine
 
     def ReadFromFile(self, filePath):
         trigramsFreqDict = collections.defaultdict(lambda: 0.0)
@@ -121,7 +121,7 @@ class TrigramFreqDictReader(NelsFreqDictReader):
             raise NameError(str.format("the file '{0}' does not exist", filePath))
         with open(filePath, 'r') as trigramFile:
             for i, line in enumerate(trigramFile):
-                if i < self.beginLine  or line is None or line.strip() == "":
+                if i < self.beginLine or line is None or line.strip() == "":
                     continue
                 lineAsArray = line.strip().split()
                 if len(lineAsArray) != 4:
@@ -134,10 +134,10 @@ class TrigramFreqDictReader(NelsFreqDictReader):
                 trigramsFreqDict[trigram] = int(lineAsArray[0])
             return trigramsFreqDict
 
-class UnigramFreqDictReader(NelsFreqDictReader):
-    def __init__(self, directoryOfTexts, extension, compare_abc):
+class UnigramFreqDictReader(BaseFreqDictReader):
+    def __init__(self, directoryOfTexts, extension, compare_abc, beginLine=0):
         super(UnigramFreqDictReader,self).__init__(directoryOfTexts, extension, compare_abc)
-        self.beginLine = 7
+        self.beginLine = beginLine
 
     def ReadFromFile(self, filePath):
         unigramsFreqDict = collections.defaultdict(lambda: 0.0)
