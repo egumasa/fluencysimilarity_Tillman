@@ -1,12 +1,14 @@
 # FluencySimilarity
 
 This repository contains scripts to compare textual similarity using trigrams and unigram (words) using two metrics 
-for similarity: Jaccard Similarity and Cosine Similarity of tf-idf vectors.
+for similarity: Jaccard Similarity and Cosine Similarity of tf-idf vectors. These measures are used to compare
+unigrams and trigrams of words and/or parts of speech tokens. The idea is that we can measure the relative fluency
+of a pair of text using these measures.
 
 ### How do I get set up? ###
 * Install [Anaconda3](https://www.anaconda.com/distribution/#download-section).
 * Open a command prompt
-* Run `$ cd C:\Path\to\project` and replace the path with the correct one.
+* Run `$ cd "C:\Path\to\project"` and replace the path with the correct one.
 * Run `$ pip install -r requirements.txt`
 * Run `$ SimilarityAnalysis.bat`. This runs the script on some sample data provided in the folder sample_data.
   Which runs the command `$ python "src\SimilarityAnalysis.py" -t trigram -d "sample_data" --begin-line 7 > "result.csv"`
