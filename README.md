@@ -36,10 +36,20 @@ Note that the story and delivery must be one character. If you want to change th
 see file `BaseFreqDictReader.py` method `ParseFileName()`
 
 **Contents** The contents of the file should contain lines of the form "    {freq}  {word1} {word2} {word3}"
+where freq is the frequency of the trigram and words 1 through 3 are the words in the trigram. For example,
+given the text `my_text = "This is my text. This is my new text."` the file would contain the trigrams:
 
-    1  this is my
+    2  . . this
+    2 . this is
+    2  this is my
     1  is my text
-    3  hello my world
+    1  my text .
+    2  text . .
+    1  is my new
+    1  my new text
+    1  new text .
+
+Note that we use the convention tbat the "." means the end and beginning of a sentence.
 
 **How we compare files:** Comparison are made between files with same {condition, studentId, delivery} unless the 
 "abc" flag is set in which
