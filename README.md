@@ -1,3 +1,5 @@
+This repo is a copy of [fluencysimilarity by Phil Tillman](https://bitbucket.org/philtillman/fluencysimilarity/src/master/)
+
 # FluencySimilarity
 
 This repository contains scripts to compare textual similarity using trigrams and unigram (words) using two metrics 
