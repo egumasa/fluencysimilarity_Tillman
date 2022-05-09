@@ -1,6 +1,6 @@
-This repo is a copy of [fluencysimilarity by Phil Tillman](https://bitbucket.org/philtillman/fluencysimilarity/src/master/)
-
 # FluencySimilarity
+
+This repo is a copy of [fluencysimilarity by Philip Tillman](https://bitbucket.org/philtillman/fluencysimilarity/src/master/).
 
 This repository contains scripts to compare textual similarity using trigrams and unigram (words) using two metrics 
 for similarity: Jaccard Similarity and Cosine Similarity of tf-idf vectors. These measures are used to compare
